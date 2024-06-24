@@ -1,0 +1,39 @@
+body{
+    text-align: center;
+    background-color: rgb(99, 20, 20);
+    color: white;
+}
+
+.btns{
+    font-size: 20px;
+    width: 90px;
+    margin: 5px;
+    border-radius: 8px;
+    border: none;
+    color: rgb(99, 20, 20);
+    font-weight: bold;
+    cursor: pointer;
+     width: 200px;
+     padding: 8px;
+}
+.btns:hover{
+    background-color:   rgb(247, 247, 129);
+}
+ .pic{
+width: 100px;
+height: 100px;
+
+    
+}
+.pic:hover{
+    background-color:   rgb(247, 247, 129);
+    
+}
+.btn{
+    
+    cursor: pointer;
+    object-fit: cover;
+    margin: 8px;
+    border-radius:5px ;
+    border: none; 
+}

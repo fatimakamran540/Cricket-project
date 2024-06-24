@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cricket Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>Bat Ball Stump Game</h1>
+  <button class="btn" onclick="
+    let computerChoice = generateComputerChoice(); 
+    let result = getResult('Bat' , computerChoice);
+    showResult('Bat', computerChoice , result);">
+    <img src="bat.png" alt="bat image" class="pic"></button>
+
+  <button class="btn" onclick="
+    computerChoice = generateComputerChoice();
+     result = getResult('Ball' , computerChoice);
+     showResult('Ball', computerChoice , result);">
+       <img src="ball.jpg" alt="ball image" class="pic"></button>
+
+  <button class="btn" onclick="
+      computerChoice = generateComputerChoice();
+     result = getResult('Stump' , computerChoice);
+     showResult('Stump', computerChoice , result);">
+       <img src="stump.jpeg" alt="stump image" class="pic"></button>
+
+
+    <h3 id="user-move"></h3>
+    <h3 id="computer-move"></h3>
+    <h3 id="result"></h3>
+    <h3 id="score"></h3>
+
+    
+  <button class="btns" onclick="localStorage.clear()
+  resetScore();">Reset</button>
+  <script>
+    // observing score value for the fist time
+    let scoreStr = localStorage.getItem('score');
+    let score;
+     resetScore(scoreStr);
+
+    // display score on clicking  reset button 
+    function resetScore(scoreStr) {
+      //  if scorestr value is avaliable than parse it otherwise set all score values to 0
+       //  if( scoreStr !== undefined){
+      score =  scoreStr ? JSON.parse(scoreStr) :
+      {
+        win: 0,
+        tie: 0,
+        lost: 0,
+      };
+      score.displayScore = function () {
+      return ` win: ${score.win} , tie: ${score.tie} , lost: ${score.lost}`;
+    };
+    showResult();
+  } 
+  
+   // generate random computer choice
+    //   score = JSON.parse(scoreStr);
+    //  } else {
+    //    score = {
+    //     win: 0,
+    //     tie: 0,
+    //     lost: 0,
+    //   }
+    // };
+    
+    function generateComputerChoice() {
+      let randomNumber = Math.random() * 3;
+      if (randomNumber > 0 && randomNumber <= 1) {
+        return 'Bat';
+      } else if (randomNumber > 1 && randomNumber <= 2) {
+        return 'Ball';
+      } else {
+        return 'Stump';
+      }
+    }
+    function getResult(usermove, computermove) {
+      if (usermove === 'Bat') {
+        if (computermove === 'Bat') {
+          score.tie++;
+          return 'its a tie';
+        } else if (computermove === 'Ball') {
+          score.win++;
+          return 'User  win';
+        } else (computermove === 'Stump')
+        {
+          score.lost++;
+          return 'Computer win';
+        }
+      } else if (usermove === 'Ball') {
+        if (computermove === 'Bat') {
+          score.lost++;
+          return 'computer won';
+        } else if (computermove === 'Ball') {
+          score.tie++;
+          return 'its a tie';
+        } else (computermove === 'Stump')
+        {
+          score.win++;
+          return 'you win';
+        }
+      } else (usermove === 'Stump')
+      {
+        if (computermove === 'Bat') {
+          score.lost++;
+          return 'computer win';
+        } else if (computermove === 'Ball') {
+          score.win++;
+          return 'user win';
+        } else (computermove === 'Stump')
+        {
+          score.tie++;
+          return 'its a tie';
+        }
+
+      }
+    }
+    function showResult(usermove, computermove, res) {
+      localStorage.setItem('score', JSON.stringify(score));
+      document.querySelector('#user-move').innerText = 
+      usermove ? `You have choosen ${usermove}` : '';
+        //usermove !== undefined 
+      document.querySelector('#computer-move').innerText = 
+      computermove ?`Computer have choosen ${computermove}`:'';
+       // computermove !== undefined
+      document.querySelector('#result').innerText = 
+      res || ''; 
+      // rse !== undefined , res? checks wether  res is true or false
+
+      document.querySelector('#score').innerText = `Your Score : ${score.displayScore()}`;
+    }
+  </script>
+</body>
+
+</html>
